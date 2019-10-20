@@ -1,5 +1,6 @@
-package br.com.codenation.Entidades;
+package br.com.codenation.entidades;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -76,21 +77,61 @@ public class TimeDeFutebol {
         return this.capitao;
     }
 
-    public Long getMelhorJogador(){
-        Integer maiorHabilidade = 0;
-        Long melhorJogador = null;
+    public JogadorDeFutebol buscarMelhorJogador(){
+        JogadorDeFutebol melhorJogador = null;
 
-        for(int i=0; i < jogadores.size(); i++){
-            JogadorDeFutebol jogadorDeFutebol = jogadores.get(i);
-            if(jogadorDeFutebol.getNivelHabilidade() > maiorHabilidade){
-                maiorHabilidade = jogadorDeFutebol.getNivelHabilidade();
-                melhorJogador = jogadorDeFutebol.getId();
+        if(!jogadores.isEmpty()){
+            melhorJogador = jogadores.get(0);
+
+            for(JogadorDeFutebol jogador : jogadores){
+                if(jogador.getNivelHabilidade().compareTo(melhorJogador.getNivelHabilidade()) > 0)
+                    melhorJogador = jogador;
             }
-                
         }
 
         return melhorJogador;
     }
+
+    public JogadorDeFutebol buscarJogadorMaisVelho(){
+        JogadorDeFutebol jogadorMaisVelho = null;
+
+        if(!jogadores.isEmpty()){
+            LocalDate maiorDataNascimento = jogadores.get(0).getDataNascimento();
+
+            for(JogadorDeFutebol jogador : jogadores){
+                if(maiorDataNascimento.compareTo(jogador.getDataNascimento()) > 0) {
+                    maiorDataNascimento = jogador.getDataNascimento();
+                    jogadorMaisVelho = jogador;
+                }
+            }
+        }
+
+
+        return jogadorMaisVelho;
+    }
+
+    public JogadorDeFutebol buscarJogadorMaiorSalario(){
+        JogadorDeFutebol jogadorMaiorSalario = null;
+
+        if(!jogadores.isEmpty()){
+            jogadorMaiorSalario = jogadores.get(0);
+
+            for(JogadorDeFutebol jogador: jogadores){
+                if(jogador.getSalario().compareTo(jogadorMaiorSalario.getSalario()) > 0) {
+                    jogadorMaiorSalario = jogador;
+                }
+                else if(jogador.getSalario().compareTo(jogadorMaiorSalario.getSalario()) == 0) {
+                    if (jogador.getId().compareTo(jogadorMaiorSalario.getId()) < 0) {
+                        jogadorMaiorSalario = jogador;
+                    }
+                }
+            }
+        }
+
+        return jogadorMaiorSalario;
+    }
+
+
 
     // region Getter an Setter
     public Long getId() {

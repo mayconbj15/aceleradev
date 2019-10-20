@@ -1,9 +1,9 @@
-package br.com.codenation.Entidades;
+package br.com.codenation.entidades;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class JogadorDeFutebol {
+public class JogadorDeFutebol implements Comparable<JogadorDeFutebol> {
     private Long id;
     private Long idTime;
     private String nome;
@@ -20,9 +20,7 @@ public class JogadorDeFutebol {
         this.salario = salario;
     }
 
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
 
     public void setId(Long id) {
         this.id = id;
@@ -66,5 +64,10 @@ public class JogadorDeFutebol {
 
     public void setSalario(BigDecimal salario) {
         this.salario = salario;
+    }
+
+    @Override
+    public int compareTo(JogadorDeFutebol o) {
+        return this.getNivelHabilidade().compareTo(o.getNivelHabilidade());
     }
 }
