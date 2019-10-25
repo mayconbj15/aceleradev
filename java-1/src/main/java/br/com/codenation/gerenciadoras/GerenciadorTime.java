@@ -12,9 +12,10 @@ public class GerenciadorTime {
 
     public static boolean existeTime(Long id){
         boolean existeTime = false;
+
         for(int i=0; existeTime == false && i < timesDeFutebol.size(); i++){
-            if(timesDeFutebol.get(i).getId().equals(id));
-            existeTime = true;
+            if(timesDeFutebol.get(i).getId().equals(id))
+                existeTime = true;
         }
 
         return existeTime;
@@ -29,6 +30,10 @@ public class GerenciadorTime {
         }
 
         return timeDeFutebol;
+    }
+
+    public static Long buscarPosicaoTime(TimeDeFutebol timeDeFutebol){
+        return new Long(timesDeFutebol.indexOf(timeDeFutebol));
     }
 
     public static List<Long> buscarTimes(){

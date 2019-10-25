@@ -19,7 +19,7 @@ public class TimeDeFutebol {
 
     private List<JogadorDeFutebol> jogadores;
 
-    public TimeDeFutebol(long id, String nome, LocalDate dataCriacao, String corUniformePrincipal, String corUniformeSecundario) {
+    public TimeDeFutebol(Long id, String nome, LocalDate dataCriacao, String corUniformePrincipal, String corUniformeSecundario) {
         this.id = id;
         this.nome = nome;
         this.dataCriacao = dataCriacao;
@@ -99,7 +99,7 @@ public class TimeDeFutebol {
             LocalDate maiorDataNascimento = jogadores.get(0).getDataNascimento();
 
             for(JogadorDeFutebol jogador : jogadores){
-                if(maiorDataNascimento.compareTo(jogador.getDataNascimento()) > 0) {
+                if(jogador.getDataNascimento().compareTo(maiorDataNascimento) > 0) {
                     maiorDataNascimento = jogador.getDataNascimento();
                     jogadorMaisVelho = jogador;
                 }
@@ -179,8 +179,11 @@ public class TimeDeFutebol {
     }
 
     public List<Long> getJogadoresWithId() {
-        List<JogadorDeFutebol> jogadores = getJogadores();
         List<Long> idJogadores = new ArrayList<>();
+
+        for(JogadorDeFutebol jogador : jogadores){
+            idJogadores.add(jogador.getId());
+        }
 
         return idJogadores;
     }
@@ -199,5 +202,18 @@ public class TimeDeFutebol {
 
     public void setCapitao(JogadorDeFutebol capitao) {
         this.capitao = capitao;
+    }
+
+    @Override
+    public String toString() {
+        return "TimeDeFutebol{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", dataCriacao=" + dataCriacao +
+                ", corUniformePrincipal='" + corUniformePrincipal + '\'' +
+                ", corUniformeSecundario='" + corUniformeSecundario + '\'' +
+                ", capitao=" + capitao +
+                ", jogadores=" + jogadores +
+                '}';
     }
 }

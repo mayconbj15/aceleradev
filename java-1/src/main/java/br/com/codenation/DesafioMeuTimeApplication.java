@@ -21,7 +21,7 @@ public class DesafioMeuTimeApplication implements MeuTimeInterface {
 	@Desafio("incluirTime")
 	public void incluirTime(Long id, String nome, LocalDate dataCriacao, String corUniformePrincipal, String corUniformeSecundario) {
 
-		if(!GerenciadorTime.existeTime(id)){
+		if(GerenciadorTime.existeTime(id)){
 			throw new IdentificadorUtilizadoException();
 		}else{
 			GerenciadorTime.timesDeFutebol.add(new TimeDeFutebol(
@@ -33,13 +33,17 @@ public class DesafioMeuTimeApplication implements MeuTimeInterface {
 
 	@Desafio("incluirJogador")
 	public void incluirJogador(Long id, Long idTime, String nome, LocalDate dataNascimento, Integer nivelHabilidade, BigDecimal salario) {
-		int idTimeInt = idTime.intValue();
+		Long posicaoDoTime;
 
 		if(!GerenciadorTime.existeTime(idTime)){
 			throw new TimeNaoEncontradoException();
+		} else if(GerenciadorJogadores.buscarJogador(id) != null){
+			throw new IdentificadorUtilizadoException();
 		}
 
-		GerenciadorTime.timesDeFutebol.get(idTimeInt).adicionarJogador(new JogadorDeFutebol(
+		posicaoDoTime = GerenciadorTime.buscarPosicaoTime(GerenciadorTime.buscarTime(idTime));
+
+		GerenciadorTime.timesDeFutebol.get(posicaoDoTime.intValue()).adicionarJogador(new JogadorDeFutebol(
 				id, idTime, nome, dataNascimento, nivelHabilidade, salario
 		));
 

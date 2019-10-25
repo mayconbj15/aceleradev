@@ -70,4 +70,16 @@ public class JogadorDeFutebol implements Comparable<JogadorDeFutebol> {
     public int compareTo(JogadorDeFutebol o) {
         return this.getNivelHabilidade().compareTo(o.getNivelHabilidade());
     }
+
+    @Override
+    public String toString() {
+        return "JogadorDeFutebol{" +
+                "id=" + id +
+                ", idTime=" + idTime +
+                ", nome='" + nome + '\'' +
+                ", dataNascimento=" + dataNascimento +
+                ", nivelHabilidade=" + nivelHabilidade +
+                ", salario=" + salario +
+                '}';
+    }
 }
